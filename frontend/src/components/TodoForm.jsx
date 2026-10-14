@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 export default function TodoForm({ onSubmit }) {
-  const [title,       setTitle]       = useState('');
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [loading,     setLoading]     = useState(false);
-  const [error,       setError]       = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,9 +41,14 @@ export default function TodoForm({ onSubmit }) {
           value={title}
           onChange={(e) => { setTitle(e.target.value); setError(''); }}
           disabled={loading}
-          maxLength={255}
+          maxLength={100}
           autoFocus
         />
+
+        <p style={{ color: title.length >= 80 ? '#b45309' : '#6b7280' }}>
+          {title.length}/100 characters
+          {title.length >= 80 && ' — Nearing the limit!'}
+        </p>
         <input
           className="form-input"
           type="text"
@@ -51,8 +56,13 @@ export default function TodoForm({ onSubmit }) {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           disabled={loading}
-          maxLength={1000}
+          maxLength={500}
         />
+
+        <p style={{ color: description.length >= 400 ? '#b45309' : '#6b7280' }}>
+          {description.length}/500 characters
+          {description.length >= 400 && ' — Nearing the limit!'}
+        </p>
         <button className="form-submit" type="submit" disabled={loading}>
           {loading ? 'Adding…' : '+ Add Todo'}
         </button>
