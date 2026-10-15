@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TodoForm from '../components/TodoForm';
 import TodoCard from '../components/TodoCard';
@@ -84,7 +84,7 @@ export default function TodoPage() {
     <div>
       <header className="header">
         <div className="header-inner">
-          <div className="header-logo">✓</div>
+          <div className="header-logo">âœ“</div>
           <div className="header-text">
             <h1 className="header-title">My Todo List</h1>
             <p className="header-sub">Welcome back, {username}!</p>
@@ -101,9 +101,9 @@ export default function TodoPage() {
         {todos.length > 0 && !loading && (
           <div className="stats">
             <span>{todos.length} total</span>
-            <span className="stats-dot">·</span>
+            <span className="stats-dot">Â·</span>
             <span className="stats-done">{completedCount} completed</span>
-            <span className="stats-dot">·</span>
+            <span className="stats-dot">Â·</span>
             <span className="stats-todo">{todos.length - completedCount} pending</span>
           </div>
         )}
@@ -117,10 +117,10 @@ export default function TodoPage() {
             {summaryLoading ? (
               <>
                 <span className="spinner-inline" />
-                AI is analyzing your todos…
+                AI is analyzing your todosâ€¦
               </>
             ) : (
-              '✨ Summarize My Todos'
+              'âœ¨ Summarize My Todos'
             )}
           </button>
         </div>
@@ -128,13 +128,13 @@ export default function TodoPage() {
         {showSummary && (
           <div className="ai-summary-card">
             <div className="ai-summary-header">
-              <span className="ai-summary-title">✨ AI Summary</span>
+              <span className="ai-summary-title">âœ¨ AI Summary</span>
               <button className="ai-summary-close" onClick={closeSummary} aria-label="Close summary">
-                ✕
+                âœ•
               </button>
             </div>
             {summaryLoading ? (
-              <p className="ai-summary-text">AI is analyzing your todos…</p>
+              <p className="ai-summary-text">AI is analyzing your todosâ€¦</p>
             ) : summaryError ? (
               <p className="ai-summary-error">{summaryError}</p>
             ) : (
@@ -146,24 +146,28 @@ export default function TodoPage() {
         {loading && (
           <div className="spinner-wrap">
             <div className="spinner" />
-            <p className="spinner-label">Loading your todos…</p>
+            <p className="spinner-label">Loading your todosâ€¦</p>
           </div>
         )}
 
         {error && !loading && (
           <div className="error-banner">
-            <span>⚠ {error}</span>
+            <span>âš  {error}</span>
             <button className="retry-btn" onClick={fetchTodos}>Retry</button>
           </div>
         )}
 
+
+
         {!loading && !error && todos.length === 0 && (
-          <div className="empty-state">
-            <div className="empty-icon">📋</div>
-            <p className="empty-text">No todos yet!</p>
-            <p className="empty-hint">Use the form above to add your first task.</p>
+          <div className="empty-state" role="status" aria-live="polite">
+            <div className="empty-icon" aria-hidden="true">ðŸ“‹</div>
+            <p className="empty-text">You have no todos yet!</p>
+            <p className="empty-hint">Click '+ Add Todo' to get started</p>
           </div>
         )}
+
+
 
         {!loading && !error && (
           <ul className="todo-list">
@@ -179,6 +183,7 @@ export default function TodoPage() {
           </ul>
         )}
       </main>
+
     </div>
   );
 }
