@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TodoForm from '../components/TodoForm';
 import TodoCard from '../components/TodoCard';
+import { useTheme } from '../context/ThemeContext';
 import { getAllTodos, createTodo, toggleComplete, deleteTodo, summarizeTodos } from '../api';
 
 export default function TodoPage() {
@@ -13,6 +14,7 @@ export default function TodoPage() {
   const [summaryError,   setSummaryError]   = useState(null);
   const [showSummary,    setShowSummary]    = useState(false);
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   const username = localStorage.getItem('username') || 'there';
 
@@ -89,9 +91,20 @@ export default function TodoPage() {
             <h1 className="header-title">My Todo List</h1>
             <p className="header-sub">Welcome back, {username}!</p>
           </div>
-          <button className="logout-btn" onClick={handleLogout}>
-            Logout
-          </button>
+          <div className="header-actions">
+            <button
+              type="button"
+              className="theme-toggle-btn"
+              onClick={toggleTheme}
+              aria-pressed={theme === 'dark'}
+            >
+              {theme === 'dark' ? '☀️ Light mode' : '🌙 Dark mode'}
+            </button>
+
+            <button className="logout-btn" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
         </div>
       </header>
 
